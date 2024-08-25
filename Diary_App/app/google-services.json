@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "919866812454",
+    "project_id": "diary-app-7eb1a",
+    "storage_bucket": "diary-app-7eb1a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:919866812454:android:1095fecb52c60fc304dee7",
+        "android_client_info": {
+          "package_name": "com.example.diary_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3CEKSqh2S9KMl0TABsNMeSfdkACfoBw8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

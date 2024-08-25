@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#F3F4E4"
+    tools:context=".add_info">
+
+    <!-- "ADD INFO" TextView -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ADD INFO"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:textColor="@color/my"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Edit Text for Name -->
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Name"
+        android:drawablePadding="8dp"
+        android:background="@drawable/custom_edittext"
+        android:textSize="16sp"
+        android:padding="10dp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Horizontal LinearLayout for Date and Time Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Button for Date -->
+        <Button
+            android:id="@+id/dateButton"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Pick Date"
+            android:background="@drawable/button"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:textColor="#F3B92A"
+            android:layout_marginRight="5dp"/>
+
+        <!-- Button for Time -->
+        <Button
+            android:id="@+id/timeButton"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Pick Time"
+            android:background="@drawable/button"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:textColor="#F3B92A"
+            android:layout_marginLeft="5dp"/>
+    </LinearLayout>
+
+    <!-- Type of Work -->
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Type of Work"
+        android:drawablePadding="8dp"
+        android:background="@drawable/custom_edittext"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:padding="10dp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Edit Text for Address -->
+    <EditText
+        android:id="@+id/editText5"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/custom_edittext"
+        android:drawablePadding="8dp"
+        android:gravity="top"
+        android:hint="Enter Address"
+        android:inputType="textMultiLine"
+        android:lines="4"
+        android:padding="8dp"
+        android:textSize="16sp" />
+
+    <!-- LinearLayout for imageView2 and editTextText -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <!-- ImageView for EditText6 -->
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="50dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="8.5dp"
+            android:layout_marginBottom="8.5dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/flag_of_india" />
+
+        <!-- EditTextText -->
+        <EditText
+            android:id="@+id/editTextText"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8.5dp"
+            android:layout_marginBottom="8.5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/custom_edittext"
+            android:drawablePadding="8dp"
+            android:ems="3"
+            android:gravity="center"
+            android:inputType="text"
+            android:padding="10dp"
+            android:text="+ 91 "
+            android:textColor="#533233" />
+
+        <!-- EditText6 -->
+        <EditText
+            android:id="@+id/editText6"
+            android:layout_width="244dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8.5dp"
+            android:layout_marginBottom="8.5dp"
+            android:layout_weight="1"
+            android:background="@drawable/custom_edittext"
+            android:drawablePadding="8dp"
+            android:hint="Enter Phone Number"
+            android:inputType="phone"
+            android:padding="11dp"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- Edit Text for Phone Number -->
+
+    <!-- Button to Add Info -->
+    <Button
+        android:id="@+id/btnAddInfo"
+        android:layout_width="150dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center"
+        android:text="Add Info"
+        android:textColor="#F3B92A"
+        android:background="@drawable/button"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+</LinearLayout>
