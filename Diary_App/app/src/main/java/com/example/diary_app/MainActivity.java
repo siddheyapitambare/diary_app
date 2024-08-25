@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     TextInputEditText username;
     TextInputEditText password;
     private Button loginButton;
-    private TextView signupTextView; // Declare the TextView
+    private TextView signupTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +32,11 @@ public class MainActivity extends AppCompatActivity {
         username = findViewById(R.id.user_name);
         password = findViewById(R.id.pass);
         loginButton = findViewById(R.id.login);
-        signupTextView = findViewById(R.id.signup); // Initialize the TextView
+        signupTextView = findViewById(R.id.signup);
 
         signupTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Intent to start the signup activity
                 Intent intent = new Intent(MainActivity.this, signup.class);
                 startActivity(intent);
             }
@@ -46,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Validate username and password before checking user credentials
                 if (validateUsername() && validatePassword()) {
                     checkUser();
                     Toast.makeText(MainActivity.this, "Login", Toast.LENGTH_SHORT).show();
@@ -55,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // Validate the entered username
     private boolean validateUsername() {
         String val = username.getText().toString().trim();
         if (val.isEmpty()) {
@@ -67,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Validate the entered password
     private boolean validatePassword() {
         String val = password.getText().toString().trim();
         if (val.isEmpty()) {
@@ -79,50 +75,39 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Check user credentials in the Firebase database
     private void checkUser() {
         String userUsername = username.getText().toString().trim();
         String userPassword = password.getText().toString().trim();
 
-        // Reference to the "User" node in the Firebase database
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("User");
-        // Query to check if a user with the given username exists
         Query checkUserDatabase = reference.orderByChild("username").equalTo(userUsername);
 
-        // Add a ValueEventListener to the query to check for the existence of the user
         checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    // User exists, check the entered password
-                    String passwordFromDB = snapshot.child(userUsername).child("password").getValue(String.class);
+                    for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                        String passwordFromDB = userSnapshot.child("password").getValue(String.class);
 
+                        if (passwordFromDB != null && passwordFromDB.equals(userPassword)) {
+                            String uniqueKey = userUsername + userPassword;
+                            Toast.makeText(MainActivity.this, uniqueKey, Toast.LENGTH_SHORT).show();
 
-                    if (passwordFromDB != null && passwordFromDB.equals(userPassword)) {
-                        // Password is correct, retrieve user data and navigate to the home activity
+                            LoginDataSingleton.getInstance().setUniqueKey(uniqueKey);
+                            LoginDataSingleton.getInstance().setUserUsername(userUsername);
+                            LoginDataSingleton.getInstance().setUserPassword(userPassword);
+                            LoginDataSingleton.getInstance().setNameFromDB(userSnapshot.child("fullname").getValue(String.class));
+                            LoginDataSingleton.getInstance().setEmailFromDB(userSnapshot.child("email").getValue(String.class));
+                            LoginDataSingleton.getInstance().setPhoneFromDB(userSnapshot.child("phone").getValue(String.class));
 
-                        // Create a unique key by concatenating userUsername and userPassword
-                        String uniqueKey = userUsername + userPassword;
-                        Toast.makeText(MainActivity.this, uniqueKey, Toast.LENGTH_SHORT).show();
-
-                        // Set data in the LoginDataSingleton for later use
-                        LoginDataSingleton.getInstance().setUniqueKey(uniqueKey);
-                        LoginDataSingleton.getInstance().setUserUsername(userUsername);
-                        LoginDataSingleton.getInstance().setUserPassword(userPassword);
-                        LoginDataSingleton.getInstance().setNameFromDB(snapshot.child("fullname").getValue(String.class));
-                        LoginDataSingleton.getInstance().setEmailFromDB(snapshot.child("email").getValue(String.class));
-                        LoginDataSingleton.getInstance().setPhoneFromDB(snapshot.child("phone").getValue(String.class));
-
-                        // Start the home activity
-                        Intent intent_profile = new Intent(MainActivity.this, bottom_nav.class);
-                        startActivity(intent_profile);
-                    } else {
-                        // Password is incorrect, display an error message
-                        password.setError("Invalid Credentials");
-                        password.requestFocus();
+                            Intent intent_profile = new Intent(MainActivity.this, bottom_nav.class);
+                            startActivity(intent_profile);
+                            return;
+                        }
                     }
+                    password.setError("Invalid Credentials");
+                    password.requestFocus();
                 } else {
-                    // User does not exist, display an error message
                     username.setError("User does not exist");
                     username.requestFocus();
                 }
@@ -130,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Handle database error
                 Toast.makeText(MainActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
